@@ -8,40 +8,39 @@
         <q-btn
           to="/camera"
           class="large-screen-only q-mr-sm"
-          flat
-          dense
-          round
           icon="eva-camera-outline"
           size="18px"
+          flat
+          round
+          dense
         />
         <q-separator
           class="large-screen-only"
           vertical
           spaced
         />
-
-        <q-toolbar-title
-          class="text-grand-hotel text-bold">
+        <q-toolbar-title class="text-grand-hotel text-bold">
           Quasagram
         </q-toolbar-title>
         <q-btn
           to="/"
           class="large-screen-only"
-          flat
-          dense
-          round
           icon="eva-home-outline"
           size="18px"
+          flat
+          round
+          dense
         />
       </q-toolbar>
     </q-header>
 
     <q-footer
+      class="bg-white small-screen-only"
       bordered
-      class="bg-white small-screen-only">
+    >
       <q-tabs
-        active-color="primary"
         class="text-grey-10"
+        active-color="primary"
         indicator-color="transparent"
       >
         <q-route-tab
@@ -55,18 +54,20 @@
       </q-tabs>
     </q-footer>
 
-    <q-page-container>
-      <router-view/>
+    <q-page-container class="bg-grey-1">
+      <router-view />
     </q-page-container>
   </q-layout>
 </template>
 
 <script>
-
 export default {
   name: 'MainLayout',
-  data() {
-    return {}
+
+  data () {
+    return {
+
+    }
   }
 }
 </script>
@@ -75,13 +76,10 @@ export default {
 .q-toolbar
   @media (min-width: $breakpoint-sm-min)
     height: 77px
-
 .q-toolbar__title
   font-size: 30px
   @media (max-width: $breakpoint-xs-max)
     text-align: center
-
-
 .q-footer
   .q-tab__icon
     font-size: 30px
