@@ -33,7 +33,7 @@ https://lh3.googleusercontent.com/ogw/ADGmqu9_8g0o3hZm25AO3Ji1n2h5f2Zv9g3NocYpgM
 
       <q-card-section>
         <div>{{ post.caption }}</div>
-        <div class="text-caption text-grey">{{ post.date }}</div>
+        <div class="text-caption text-grey">{{ post.date | niceDate }}</div>
       </q-card-section>
 
 
@@ -42,6 +42,8 @@ https://lh3.googleusercontent.com/ogw/ADGmqu9_8g0o3hZm25AO3Ji1n2h5f2Zv9g3NocYpgM
 </template>
 
 <script>
+import {date} from 'quasar'
+
 export default {
   name: 'PageHome',
   data() {
@@ -73,6 +75,11 @@ export default {
           imageURL: "https://cdn.quasar.dev/img/mountains.jpg"
         },
       ]
+    }
+  },
+  filters: {
+    niceDate(value) {
+      return date.formatDate(value, 'YYYY MMM DD , h:mmA')
     }
   }
 }
