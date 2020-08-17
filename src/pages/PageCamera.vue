@@ -13,6 +13,41 @@
         size="lg"
       />
 
+      <div class="row justify-center q-pa-md">
+        <q-input
+          v-model="text"
+          class="col"
+          label="Caption"
+          dense
+        ></q-input>
+      </div>
+
+      <div class="row justify-center q-pa-md">
+        <q-input
+          v-model="text"
+          class="col"
+          label="Location"
+          dense
+        >
+          <template v-slot:append>
+            <q-btn round
+                   dense
+                   flat
+                   icon="eva-navigation-2-outline"/>
+          </template>
+
+        </q-input>
+      </div>
+
+      <div class="row justify-center q-mt-md">
+        <q-btn
+          unelevated
+          rounded
+          color="primary"
+          label="Post Image"
+        />
+      </div>
+
     </div>
   </q-page>
 
