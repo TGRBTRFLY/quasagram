@@ -81,7 +81,8 @@ export default {
           caption: 'My Heavenly Father Loves Me',
           date: 1597607469739,
           location: 'Kingdom of God',
-          imageURL: "https://cdn.quasar.dev/img/mountains.jpg"
+          imageURL:
+            "https://cdn.quasar.dev/img/mountains.jpg"
         }, {
           id: 2,
           caption: 'My Heavenly Father Loves Me',
