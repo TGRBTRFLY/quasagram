@@ -1,7 +1,13 @@
 <template>
   <q-page class="constrain q-pa-md">
 
-    <q-card class="card-post" flat bordered>
+    <q-card
+      v-for="post in posts"
+      :key="post.id"
+      class="card-post q-mb-md"
+      flat
+      bordered
+    >
       <q-item>
         <q-item-section avatar>
           <q-avatar>
@@ -17,19 +23,17 @@ https://lh3.googleusercontent.com/ogw/ADGmqu9_8g0o3hZm25AO3Ji1n2h5f2Zv9g3NocYpgM
           >tgrbtrfly
           </q-item-label>
           <q-item-label caption>
-            Kingdom of God
+            {{ post.location }}
           </q-item-label>
         </q-item-section>
       </q-item>
 
       <q-separator/>
-      <img src=
-             "https://cdn.quasar.dev/img/mountains.jpg"
-      >
+      <img :src="post.imageURL"/>
 
       <q-card-section>
-        <div>My Heavenly Father Loves Me</div>
-        <div class="text-caption text-grey">16 Aug 2020 1:45PM</div>
+        <div>{{ post.caption }}</div>
+        <div class="text-caption text-grey">{{ post.date }}</div>
       </q-card-section>
 
 
@@ -49,19 +53,19 @@ export default {
           date: 1597607469739,
           location: 'Kingdom of God',
           imageURL: "https://cdn.quasar.dev/img/mountains.jpg"
-        },{
+        }, {
           id: 2,
           caption: 'My Heavenly Father Loves Me',
           date: 1597607469739,
           location: 'Kingdom of God',
           imageURL: "https://cdn.quasar.dev/img/mountains.jpg"
-        },{
+        }, {
           id: 3,
           caption: 'My Heavenly Father Loves Me',
           date: 1597607469739,
           location: 'Kingdom of God',
           imageURL: "https://cdn.quasar.dev/img/mountains.jpg"
-        },{
+        }, {
           id: 4,
           caption: 'My Heavenly Father Loves Me',
           date: 1597607469739,
