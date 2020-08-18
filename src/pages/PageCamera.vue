@@ -6,51 +6,44 @@
           ref="video"
           class="full-width"
           autoplay
-      ></video >
-
+      />
       <canvas
           v-show="imageCaptured"
           ref="canvas"
           class="full-width"
           height="240"
-      ></canvas >
-
+      />
     </div >
-
-    <!--  IMAGE CAPTURE BUTTON -->
     <div class="text-center q-pa-md">
       <q-btn
           v-if="hasCameraSupport"
           @click="captureImage"
-          round
           color="grey-10"
           icon="eva-camera"
           size="lg"
+          round
       />
-
-      <!--   IMAGE UPLOAD FILE -->
       <q-file
-          accept="image/*"
           v-else
-          outlined
           v-model="imageUpload"
+          @input="captureImageFallback"
           label="Choose an image"
+          accept="image/*"
+          outlined
       >
         <template v-slot:prepend>
           <q-icon name="eva-attach-outline" />
         </template >
       </q-file >
-
-      <div class="row justify-center q-pa-md">
+      <div class="row justify-center q-ma-md">
         <q-input
             v-model="post.caption"
             class="col col-sm-6"
             label="Caption"
             dense
-        ></q-input >
+        />
       </div >
-
-      <div class="row justify-center q-pa-md">
+      <div class="row justify-center q-ma-md">
         <q-input
             v-model="post.location"
             class="col col-sm-6"
@@ -59,35 +52,32 @@
         >
           <template v-slot:append>
             <q-btn
-                round
+                icon="eva-navigation-2-outline"
                 dense
                 flat
-                icon="eva-navigation-2-outline"
+                round
             />
           </template >
-
         </q-input >
       </div >
-
-      <div class="row justify-center q-mt-md">
+      <div class="row justify-center q-mt-lg">
         <q-btn
-            unelevated
-            rounded
             color="primary"
             label="Post Image"
+            rounded
+            unelevated
         />
       </div >
-
     </div >
   </q-page >
-
 </template >
 
 <script >
 import {uid} from 'quasar'
 
+require('md-gum-polyfill')
 export default {
-  name: "PageCamera",
+  name: 'PageCamera',
   data() {
     return {
       post: {
@@ -99,7 +89,7 @@ export default {
       },
       imageCaptured: false,
       imageUpload: [],
-      hasCameraSupport: true,
+      hasCameraSupport: true
     }
   },
   methods: {
@@ -121,6 +111,29 @@ export default {
       context.drawImage(video, 0, 0, canvas.width, canvas.height)
       this.imageCaptured = true
       this.post.photo = this.dataURItoBlob(canvas.toDataURL())
+      this.disableCamera()
+    },
+    captureImageFallback(file) {
+      this.post.photo = file
+      let canvas = this.$refs.canvas
+      let context = canvas.getContext('2d')
+      var reader = new FileReader()
+      reader.onload = event => {
+        var img = new Image()
+        img.onload = () => {
+          canvas.width = img.width
+          canvas.height = img.height
+          context.drawImage(img, 0, 0)
+          this.imageCaptured = true
+        }
+        img.src = event.target.result
+      }
+      reader.readAsDataURL(file)
+    },
+    disableCamera() {
+      this.$refs.video.srcObject.getVideoTracks().forEach(track => {
+        track.stop()
+      })
     },
     dataURItoBlob(dataURI) {
       // convert base64 to raw binary data held in a string
@@ -143,6 +156,11 @@ export default {
   },
   mounted() {
     this.initCamera()
+  },
+  beforeDestroy() {
+    if (this.hasCameraSupport) {
+      this.disableCamera()
+    }
   }
 }
 </script >
