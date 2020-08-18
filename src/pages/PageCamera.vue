@@ -1,73 +1,89 @@
-<template>
+<template >
   <q-page class="constrain-more q-pa-md">
     <div class="camera-frame q-pa-md">
       <video
-        v-show="!imageCaptured"
-        ref="video"
-        class="full-width"
-        autoplay
-      ></video>
+          v-show="!imageCaptured"
+          ref="video"
+          class="full-width"
+          autoplay
+      ></video >
 
       <canvas
-        v-show="imageCaptured"
-        ref="canvas"
-        class="full-width"
-        height="240"
-      ></canvas>
+          v-show="imageCaptured"
+          ref="canvas"
+          class="full-width"
+          height="240"
+      ></canvas >
 
-    </div>
+    </div >
 
-    <!--    CAPTURE BUTTON -->
+    <!--  IMAGE CAPTURE BUTTON -->
     <div class="text-center q-pa-md">
       <q-btn
-        @click="captureImage"
-        round
-        color="grey-10"
-        icon="eva-camera"
-        size="lg"
+          v-if="hasCameraSupport"
+          @click="captureImage"
+          round
+          color="grey-10"
+          icon="eva-camera"
+          size="lg"
       />
 
-      <div class="row justify-center q-pa-md">
-        <q-input
-          v-model="post.caption"
-          class="col col-sm-6"
-          label="Caption"
-          dense
-        ></q-input>
-      </div>
+      <!--   IMAGE UPLOAD FILE -->
+      <q-file
+          accept="image/*"
+          v-else
+          outlined
+          v-model="imageUpload"
+          label="Choose an image"
+      >
+        <template v-slot:prepend>
+          <q-icon name="eva-attach-outline" />
+        </template >
+      </q-file >
 
       <div class="row justify-center q-pa-md">
         <q-input
-          v-model="post.location"
-          class="col col-sm-6"
-          label="Location"
-          dense
+            v-model="post.caption"
+            class="col col-sm-6"
+            label="Caption"
+            dense
+        ></q-input >
+      </div >
+
+      <div class="row justify-center q-pa-md">
+        <q-input
+            v-model="post.location"
+            class="col col-sm-6"
+            label="Location"
+            dense
         >
           <template v-slot:append>
-            <q-btn round
-                   dense
-                   flat
-                   icon="eva-navigation-2-outline"/>
-          </template>
+            <q-btn
+                round
+                dense
+                flat
+                icon="eva-navigation-2-outline"
+            />
+          </template >
 
-        </q-input>
-      </div>
+        </q-input >
+      </div >
 
       <div class="row justify-center q-mt-md">
         <q-btn
-          unelevated
-          rounded
-          color="primary"
-          label="Post Image"
+            unelevated
+            rounded
+            color="primary"
+            label="Post Image"
         />
-      </div>
+      </div >
 
-    </div>
-  </q-page>
+    </div >
+  </q-page >
 
-</template>
+</template >
 
-<script>
+<script >
 import {uid} from 'quasar'
 
 export default {
@@ -81,7 +97,9 @@ export default {
         photo: null,
         date: Date.now()
       },
-      imageCaptured: false
+      imageCaptured: false,
+      imageUpload: [],
+      hasCameraSupport: true,
     }
   },
   methods: {
@@ -90,6 +108,8 @@ export default {
         video: true
       }).then(stream => {
         this.$refs.video.srcObject = stream
+      }).catch(error => {
+        this.hasCameraSupport = false
       })
     },
     captureImage() {
@@ -125,10 +145,10 @@ export default {
     this.initCamera()
   }
 }
-</script>
+</script >
 
 <style lang="sass">
 .camera-frame
   border: 2px solid $grey-10
   border-radius: 10px
-</style>
+</style >
