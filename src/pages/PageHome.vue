@@ -110,7 +110,7 @@ export default {
       }).catch(err => {
         this.$q.dialog({
           title: 'Error',
-          message: 'Could not find your location.'
+          message: 'Could not download posts.'
         })
         this.loadingPosts = false
       })
