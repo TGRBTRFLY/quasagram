@@ -80,7 +80,7 @@ module.exports = function (/* ctx */) {
             // components: [],
             // directives: [],
             // Quasar plugins
-            plugins: []
+            plugins: ['Dialog', 'Notify', 'Loading']
         },
         // animations: 'all', // --- includes all animations
         // https://quasar.dev/options/animations
